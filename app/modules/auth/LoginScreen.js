@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
   StyleSheet, View, Text, TextInput, TouchableHighlight,
-  AsyncStorage,
 } from 'react-native'
 
 import { actions } from './auth.module'
@@ -33,13 +32,8 @@ class LoginScreen extends Component {
     const { email, password } = this.state
     this.props.actions
       .login(email, password)
-      .then(token => {
-        AsyncStorage.setItem('token', token)
+      .then(() => {
         this.props.navigator.push(routes.fuelPurchasesScreen)
-      })
-      .catch((err) => {
-        console.log(err)
-        AsyncStorage.removeItem('token')
       })
   }
 

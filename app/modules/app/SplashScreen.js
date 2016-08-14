@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, View, Text } from 'react-native'
 
 import routes from '../../routes'
@@ -12,7 +13,16 @@ const styles = StyleSheet.create({
   },
 })
 
-function SplashScreen({ navigator }) {
+function SplashScreen({ navigator, auth }) {
+  console.log(auth)
+  if (auth.isAuthenticated) {
+    navigator.push(routes.fuelPurchasesScreen)
+  }
+
+  if (!auth.isAuthenticated && !auth.isAuthenticating) {
+    navigator.push(routes.loginScreen)
+  }
+
   return (
     <View style={styles.root}>
       <Text>Loading</Text>
@@ -22,8 +32,13 @@ function SplashScreen({ navigator }) {
 
 SplashScreen.propTypes = {
   navigator: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 }
 
-export default SplashScreen
+function mapStateToProps(store) {
+  return {
+    auth: store.auth,
+  }
+}
 
-// onStartShouldSetResponder={() => navigator.push(routes.gameScreen)
+export default connect(mapStateToProps)(SplashScreen)

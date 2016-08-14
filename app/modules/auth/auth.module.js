@@ -1,4 +1,7 @@
+import { AsyncStorage } from 'react-native'
+
 import api from '../../utils/api'
+import db from '../../utils/db'
 
 // ------------------------------------
 // Constants
@@ -35,12 +38,7 @@ export const login = (email, password) => {
     dispatch(loginRequest())
 
     return api('auth/login', 'POST', { email, password })
-      .then(response => {
-        const { token } = response
-        dispatch(loginSuccess(token))
-
-        return token
-      })
+      .then(response => dispatch(loginSuccess(response.token)))
       .catch(err => {
         dispatch(loginFailure(err))
         throw err
@@ -76,7 +74,23 @@ export const signup = (user) => {
   }
 }
 
+// Authenticate
+export const authenticate = () => {
+  return (dispatch) => {
+    dispatch(loginRequest())
+
+    return AsyncStorage.getItem('token')
+      .then(token => {
+        if (token) {
+          return dispatch(loginSuccess(token))
+        }
+
+        return dispatch(loginFailure())
+      })
+  }
+}
 export const actions = {
+  authenticate,
   login,
   signup,
 }
@@ -94,6 +108,7 @@ const ACTION_HANDLERS = {
 
   [LOGIN_SUCCESS]: (state, action) => {
     const { token } = action
+    AsyncStorage.setItem('token', token)
 
     return {
       ...state,
@@ -104,6 +119,8 @@ const ACTION_HANDLERS = {
   },
 
   [LOGIN_FAILURE]: (state) => {
+    AsyncStorage.removeItem('token')
+
     return {
       ...state,
       isAuthenticated: false,
@@ -148,7 +165,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   isAuthenticated: false,
-  isAuthenticating: false,
+  isAuthenticating: true,
   token: null,
 }
 

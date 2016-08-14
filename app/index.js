@@ -9,7 +9,7 @@ function App({ store }) {
   return (
     <Provider store={store}>
       <Navigator
-        initialRoute={routes.loginScreen}
+        initialRoute={routes.splashScreen}
         configureScene={router.configureScene}
         renderScene={router.renderScene}
       />

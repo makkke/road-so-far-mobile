@@ -1,6 +1,6 @@
 import config from '../config'
 
-export function api (endpoint, method = 'get', body) {
+export function api(endpoint, method = 'get', body) {
   return fetch(`${config.api.url}/${endpoint}`, {
     headers: {
       Accept: 'application/json',

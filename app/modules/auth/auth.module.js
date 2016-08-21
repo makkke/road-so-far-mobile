@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 
 import api from '../../utils/api'
 import db from '../../utils/db'

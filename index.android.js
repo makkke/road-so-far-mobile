@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppRegistry } from 'react-native'
 
-import App from './app'
+import Root from './app/Root'
 import { configureStore } from './app/store'
 import { authenticate } from './app/modules/auth/auth.module'
 
@@ -9,7 +9,7 @@ const store = configureStore()
 store.dispatch(authenticate())
 
 function RoadSoFar() {
-  return <App {...this.props} store={store} />
+  return <Root {...this.props} store={store} />
 }
 
 AppRegistry.registerComponent('roadsofar', () => RoadSoFar)

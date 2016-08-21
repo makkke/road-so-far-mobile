@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Alert } from 'react-native'
 
 import routes from '../../routes'
 
@@ -13,21 +13,28 @@ const styles = StyleSheet.create({
   },
 })
 
-function SplashScreen({ navigator, auth }) {
-  console.log(auth)
-  if (auth.isAuthenticated) {
-    navigator.push(routes.fuelPurchasesScreen)
-  }
+class SplashScreen extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   Alert.alert('debug', JSON.stringify(props.auth))
+  // }
 
-  if (!auth.isAuthenticated && !auth.isAuthenticating) {
-    navigator.push(routes.loginScreen)
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const { auth, navigator } = nextProps
+  //   if (auth.isAuthenticated) {
+  //     navigator.push(routes.fuelPurchasesScreen)
+  //   } else if (!auth.isAuthenticated && !auth.isAuthenticating) {
+  //     navigator.push(routes.loginScreen)
+  //   }
+  // }
 
-  return (
-    <View style={styles.root}>
-      <Text>Loading</Text>
-    </View>
-  )
+  render() {
+    return (
+      <View style={styles.root}>
+        <Text>Loading...</Text>
+      </View>
+    )
+  }
 }
 
 SplashScreen.propTypes = {
@@ -38,6 +45,7 @@ SplashScreen.propTypes = {
 function mapStateToProps(store) {
   return {
     auth: store.auth,
+    isAuthenticating: store.auth.isAuthenticating,
   }
 }
 

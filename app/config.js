@@ -1,5 +1,7 @@
+import Config from 'react-native-config'
+
 export default {
   api: {
-    url: process.env.API_URL || 'http://87278d55.ngrok.io',
+    url: Config.API_URL || 'http://dff1bb14.ngrok.io',
   },
 }

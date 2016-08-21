@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { StyleSheet, View, ListView, TouchableHighlight, Text } from 'react-native'
+import {
+  StyleSheet, View, ListView, TouchableHighlight, Text,
+  TouchableNativeFeedback,
+} from 'react-native'
 
 import routes from '../../routes'
 import { actions } from './fuelPurchases.module'
@@ -26,33 +29,47 @@ class FuelPurchasesScreen extends Component {
     super(props)
     this.props.actions.loadFuelPurchases()
     this.dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1.id !== r2.id,
+      rowHasChanged: (r1, r2) => r1 !== r2,
     })
   }
 
   renderRow = (row) => {
     return (
-      <TouchableHighlight underlayColor="#dddddd">
+      <TouchableHighlight>
         <View>
           <Text>{row.region} {row.volume} L for ${row.total}</Text>
+          <TouchableHighlight onPress={() => this.props.actions.removeFuelPurchase(row.id)}>
+            <Text>X</Text>
+          </TouchableHighlight>
         </View>
       </TouchableHighlight>
     )
   }
 
   render() {
+    // Alert.alert('debug2', JSON.stringify(this.props.fuelPurchases.length))
     const dataSource = this.dataSource.cloneWithRows(this.props.fuelPurchases)
 
     return (
-      <ListView
-        dataSource={dataSource}
-        renderRow={this.renderRow}
-      />
+      <View>
+        <TouchableNativeFeedback
+          onPress={() => this.props.navigator.push(routes.createFuelPurchaseScreen)}
+        >
+          <View>
+            <Text style={styles.buttonText}>Create New</Text>
+          </View>
+        </TouchableNativeFeedback>
+        <ListView
+          dataSource={dataSource}
+          renderRow={this.renderRow}
+        />
+      </View>
     )
   }
 }
 
 function mapStateToProps(store) {
+  // Alert.alert('debug1', JSON.stringify(store.fuelPurchases.fuelPurchases.length))
   return {
     fuelPurchases: store.fuelPurchases.fuelPurchases,
   }

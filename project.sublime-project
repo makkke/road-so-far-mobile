@@ -1,0 +1,19 @@
+{
+  "folders":
+  [
+    {
+      "path": ".",
+      "folder_exclude_patterns":
+      [
+        "node_modules",
+        "build",
+        ".gradle",
+        ".idea"
+      ],
+      "file_exclude_patterns":
+      [
+        "npm-debug.log"
+      ]
+    }
+  ],
+}

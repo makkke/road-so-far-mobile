@@ -47,19 +47,16 @@ function getStyles() {
     buttonText: {
       fontSize: 16,
       color: '#ffffff',
-      fontFamily: 'avenir',
     },
     hint: {
       marginTop: 40,
     },
     hintText: {
       color: 'rgba(255, 255, 255, 0.6)',
-      fontFamily: 'avenir',
       fontSize: 12,
     },
     hintHighlight: {
       color: 'rgba(255, 255, 255, 1)',
-      fontFamily: 'avenir',
       fontSize: 12,
     },
     input: {
@@ -83,17 +80,13 @@ function getStyles() {
     inputText: {
       paddingLeft: 0,
       color: '#ffffff',
-      fontFamily: 'avenir',
-    },
-    inputPlaceholder: {
-      fontFamily: 'avenir',
     },
   })
 
   return styles
 }
 
-class LoginScreen extends Component {
+class SignupScreen extends Component {
   static propTypes = {
     navigator: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
@@ -107,19 +100,19 @@ class LoginScreen extends Component {
   }
 
   handleSubmit = () => {
-    const { email, password } = this.state
     this.setState({ loading: true })
-    this.props.actions
-      .login(email, password)
-      .then(() => {
-        this.setState({ loading: false })
-        this.props.navigator.push(routes.fuelPurchasesScreen)
-      })
+    setTimeout(() => this.setState({ loading: false }), 2000)
+    // const { email, password } = this.state
+    // this.props.actions
+    //   .login(email, password)
+    //   .then(() => {
+    //     this.props.navigator.push(routes.fuelPurchasesScreen)
+    //   })
   }
 
   render() {
     const styles = getStyles(this.state)
-    const buttonText = this.state.loading ? 'Signing In...' : 'Sign In'
+    const buttonText = this.state.loading ? 'Signing In...' : 'Sign Up'
 
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
@@ -139,9 +132,8 @@ class LoginScreen extends Component {
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.inputText}
-                  placeholderStyle={styles.inputPlaceholder}
-                  placeholderTextColor="rgba(255, 255, 255, 0.5)"
                   underlineColorAndroid="rgba(0, 0, 0, 0)"
+                  placeholderTextColor="rgba(255, 255, 255, 0.5)"
                   placeholder="Email"
                   keyboardType="email-address"
                   returnKeyType="next"
@@ -160,14 +152,12 @@ class LoginScreen extends Component {
                 <TextInput
                   ref={(ref) => { this.passwordInput = ref }}
                   style={styles.inputText}
-                  placeholderStyle={styles.inputPlaceholder}
-                  placeholderTextColor="rgba(255, 255, 255, 0.5)"
                   underlineColorAndroid="rgba(0, 0, 0, 0)"
+                  placeholderTextColor="rgba(255, 255, 255, 0.5)"
                   placeholder="Password"
                   secureTextEntry
                   value={this.state.password}
                   onChangeText={(password) => this.setState({ password })}
-                  onSubmitEditing={this.handleSubmit}
                 />
               </View>
             </View>
@@ -178,14 +168,12 @@ class LoginScreen extends Component {
                 <Text style={styles.buttonText}>{buttonText}</Text>
               </View>
             </TouchableHighlight>
-            <TouchableWithoutFeedback onPress={() => this.props.navigator.push(routes.signupScreen)}>
-              <View style={styles.hint}>
-                <Text>
-                  <Text style={styles.hintText}>Don't have an account?</Text>
-                  <Text style={styles.hintHighlight}> Sign Up</Text>
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
+            <View style={styles.hint}>
+              <Text>
+                <Text style={styles.hintText}>Don't have an account?</Text>
+                <Text style={styles.hintHighlight}> Sign Up</Text>
+              </Text>
+            </View>
           </View>
         </Image>
       </TouchableWithoutFeedback>
@@ -201,4 +189,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen)

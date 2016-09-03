@@ -6,15 +6,6 @@ import SplashScreen from 'rn-splash-screen'
 import router from '../../router'
 import routes from '../../routes'
 
-// const styles = StyleSheet.create({
-//   root: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#644B62',
-//   },
-// })
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -24,7 +15,7 @@ class App extends Component {
   }
 
   render() {
-    const initialRoute = this.props.isAuthenticated ? routes.fuelPurchasesScreen : routes.loginScreen
+    const initialRoute = this.props.isAuthenticated ? routes.fuelPurchasesScreen : routes.signinScreen
 
     return (
       <Navigator

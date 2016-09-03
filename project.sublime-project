@@ -12,7 +12,8 @@
       ],
       "file_exclude_patterns":
       [
-        "npm-debug.log"
+        "npm-debug.log",
+        "*.webp"
       ]
     }
   ],

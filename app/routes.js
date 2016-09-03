@@ -1,5 +1,5 @@
 import SplashScreen from './modules/app/SplashScreen'
-import LoginScreen from './modules/auth/LoginScreen'
+import SigninScreen from './modules/auth/SigninScreen'
 import SignupScreen from './modules/auth/SignupScreen'
 import FuelPurchasesScreen from './modules/fuelPurchases/FuelPurchasesScreen'
 import CreateFuelPurchaseScreen from './modules/fuelPurchases/CreateFuelPurchaseScreen'
@@ -11,9 +11,9 @@ class Routes {
     }
   }
 
-  get loginScreen() {
+  get signinScreen() {
     return {
-      component: LoginScreen,
+      component: SigninScreen,
     }
   }
 

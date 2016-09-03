@@ -1,18 +1,17 @@
-import { AsyncStorage, Alert } from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 import api from '../../utils/api'
-import db from '../../utils/db'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-const LOGIN_REQUEST = 'simple-ifta/auth/LOGIN_REQUEST'
-const LOGIN_SUCCESS = 'simple-ifta/auth/LOGIN_SUCCESS'
-const LOGIN_FAILURE = 'simple-ifta/auth/LOGIN_FAILURE'
+const LOGIN_REQUEST = 'LOGIN_REQUEST'
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
-const SIGNUP_REQUEST = 'simple-ifta/auth/SIGNUP_REQUEST'
-const SIGNUP_SUCCESS = 'simple-ifta/auth/SIGNUP_SUCCESS'
-const SIGNUP_FAILURE = 'simple-ifta/auth/LOGIN_FAILURE'
+const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
+const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
 // ------------------------------------
 // Actions

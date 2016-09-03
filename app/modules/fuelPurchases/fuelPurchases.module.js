@@ -1,19 +1,19 @@
-import { secureApi } from '../../utils/api'
+import { api } from '../../utils/api'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-const LOAD_REQUEST = 'simple-ifta/fuelPurchases/LOAD_REQUEST'
-const LOAD_SUCCESS = 'simple-ifta/fuelPurchases/LOAD_SUCCESS'
-const LOAD_FAILURE = 'simple-ifta/fuelPurchases/LOAD_FAILURE'
+const LOAD_REQUEST = 'LOAD_REQUEST'
+const LOAD_SUCCESS = 'LOAD_SUCCESS'
+const LOAD_FAILURE = 'LOAD_FAILURE'
 
-const CREATE_REQUEST = 'simple-ifta/fuelPurchases/CREATE_REQUEST'
-const CREATE_SUCCESS = 'simple-ifta/fuelPurchases/CREATE_SUCCESS'
-const CREATE_FAILURE = 'simple-ifta/fuelPurchases/CREATE_FAILURE'
+const CREATE_REQUEST = 'CREATE_REQUEST'
+const CREATE_SUCCESS = 'CREATE_SUCCESS'
+const CREATE_FAILURE = 'CREATE_FAILURE'
 
-const REMOVE_REQUEST = 'simple-ifta/fuelPurchases/REMOVE_REQUEST'
-const REMOVE_SUCCESS = 'simple-ifta/fuelPurchases/REMOVE_SUCCESS'
-const REMOVE_FAILURE = 'simple-ifta/fuelPurchases/REMOVE_FAILURE'
+const REMOVE_REQUEST = 'REMOVE_REQUEST'
+const REMOVE_SUCCESS = 'REMOVE_SUCCESS'
+const REMOVE_FAILURE = 'REMOVE_FAILURE'
 
 // ------------------------------------
 // Actions
@@ -39,7 +39,7 @@ export const load = () => {
     const { token } = getState().auth
     dispatch(loadRequest())
 
-    return secureApi(token, 'fuelPurchases')
+    return api('fuelPurchases', 'GET', undefined, { Authorization: `Bearer ${token}` })
       .then(response => dispatch(loadSuccess(response)))
       .catch(err => {
         dispatch(loadFailure(err))
@@ -68,7 +68,7 @@ export const create = (fuelPurchase) => {
     const { token } = getState().auth
     dispatch(createRequest())
 
-    return secureApi(token, 'fuelPurchases', 'POST', fuelPurchase)
+    return api('fuelPurchases', 'POST', { fuelPurchase }, { Authorization: `Bearer ${token}` })
       .then(response => dispatch(createSuccess(response)))
       .catch(err => {
         dispatch(createFailure(err))
@@ -97,7 +97,7 @@ export const remove = (id) => {
     const { token } = getState().auth
     dispatch(removeRequest())
 
-    return secureApi(token, `fuelPurchases/${id}`, 'DELETE')
+    return api(`fuelPurchases/${id}`, 'DELETE', undefined, { Authorization: `Bearer ${token}` })
       .then(() => dispatch(removeSuccess(id)))
       .catch(err => {
         dispatch(removeFailure(err))

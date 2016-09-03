@@ -42,3 +42,4 @@ android/keystores/debug.keystore
 
 project.sublime-workspace
 .env*
+playground

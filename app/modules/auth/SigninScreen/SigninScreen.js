@@ -70,7 +70,7 @@ class SigninScreen extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
         <Image source={require('./signin-bg.webp')} style={styles.root}>
-          <StatusBar backgroundColor="#5A5796" />
+          <StatusBar backgroundColor="#5a5796" />
           <View style={styles.logo}>
             <Image source={require('../logo.png')} style={styles.logoImage} />
           </View>

@@ -5,16 +5,31 @@ import { regions, isProvince } from '../../../utils/data'
 
 const styles = StyleSheet.create({
   root: {
-    // flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingVertical: 30,
     backgroundColor: 'rgba(255, 255, 255, 0.16)',
+    borderRadius: 2,
+    shadowColor: '#2b2f51',
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 0,
+      width: 0,
+    },
+  },
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  bottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingTop: 4,
   },
   date: {
     width: 20,
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
   },
@@ -30,8 +45,6 @@ const styles = StyleSheet.create({
   },
   location: {
     flex: 4,
-    // justifyContent: 'flex-start',
-    // alignItems: 'flex-start',
     paddingHorizontal: 10,
   },
   locationCity: {
@@ -51,8 +64,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
   },
-  quantityText: {
+  quantityIntegerText: {
     fontSize: 18,
+    color: '#829efe',
+    fontFamily: 'avenir',
+  },
+  quantityFractionalText: {
+    fontSize: 14,
     color: '#829efe',
     fontFamily: 'avenir',
   },
@@ -62,14 +80,22 @@ const styles = StyleSheet.create({
     fontFamily: 'avenir',
   },
   amount: {
+    flexDirection: 'row',
     flex: 1,
-    width: 65,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingHorizontal: 10,
+    width: 65,
   },
-  amountText: {
+  amountIntegerText: {
     fontSize: 20,
+    color: '#53cae3',
+    fontFamily: 'avenir',
+  },
+  amountFractionalText: {
+    marginLeft: 3,
+    marginTop: 2,
+    fontSize: 10,
     color: '#53cae3',
     fontFamily: 'avenir',
   },
@@ -85,29 +111,58 @@ function FuelPurchaseItem(props) {
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
   ]
-  const { createdAt, location, quantity, amount } = props
+  const { createdAt, location } = props
   const date = new Date(createdAt)
   const region = regions.find(x => x.id === location.region)
+
+  const quantity = {
+    integerPart: Math.floor(props.quantity),
+    fractionalPart: (props.quantity % 1).toFixed(3).substring(1),
+  }
+  const amount = {
+    integerPart: Math.floor(props.amount),
+    fractionalPart: (props.amount % 1).toFixed(2).substring(2),
+  }
 
   return (
     <TouchableHighlight>
       <View>
         <View style={styles.root}>
-          <View style={styles.date}>
-            <Text style={styles.dateDay}>{date.getDate()}</Text>
-            <Text style={styles.dateMonth}>{months[date.getMonth()].toUpperCase()}</Text>
+          <View style={styles.top}>
+            <View style={styles.date}>
+              <Text style={styles.dateDay}>{date.getDate()}</Text>
+            </View>
+            <View style={styles.location}>
+              <Text style={styles.locationCity}>{location.city}</Text>
+            </View>
+            <View style={styles.quantity}>
+              <Text>
+                <Text style={styles.quantityIntegerText}>{quantity.integerPart}</Text>
+                <Text style={styles.quantityFractionalText}>{quantity.fractionalPart}</Text>
+              </Text>
+            </View>
+            <View style={styles.amount}>
+              <View>
+                <Text style={styles.amountIntegerText}>${amount.integerPart}</Text>
+              </View>
+              <View style={styles.amountFractionalPart}>
+                <Text style={styles.amountFractionalText}>{amount.fractionalPart}</Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.location}>
-            <Text style={styles.locationCity}>{location.city}</Text>
-            <Text style={styles.locationRegion}>{region.name}, {location.region.toUpperCase()}</Text>
-          </View>
-          <View style={styles.quantity}>
-            <Text style={styles.quantityText}>{quantity}</Text>
-            <Text style={styles.quantityUnit}>{isProvince(region.id) ? 'LTR' : 'GAL'}</Text>
-          </View>
-          <View style={styles.amount}>
-            <Text style={styles.amountText}>${amount}</Text>
-            <Text style={styles.amountUnit}>{isProvince(region.id) ? 'CDN' : 'USD'}</Text>
+          <View style={styles.bottom}>
+            <View style={styles.date}>
+              <Text style={styles.dateMonth}>{months[date.getMonth()].toUpperCase()}</Text>
+            </View>
+            <View style={styles.location}>
+              <Text style={styles.locationRegion}>{region.name}, {location.region.toUpperCase()}</Text>
+            </View>
+            <View style={styles.quantity}>
+              <Text style={styles.quantityUnit}>{isProvince(region.id) ? 'LTR' : 'GAL'}</Text>
+            </View>
+            <View style={styles.amount}>
+              <Text style={styles.amountUnit}>{isProvince(region.id) ? 'CDN' : 'USD'}</Text>
+            </View>
           </View>
         </View>
       </View>

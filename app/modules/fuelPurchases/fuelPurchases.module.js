@@ -118,25 +118,25 @@ export const actions = {
 const ACTION_HANDLERS = {
   [LOAD_REQUEST]: (state) => ({
     ...state,
-    isLoading: true,
+    loading: true,
   }),
 
   [LOAD_SUCCESS]: (state, { fuelPurchases }) => {
     return {
       ...state,
-      isLoading: false,
+      loading: false,
       fuelPurchases,
     }
   },
 
   [LOAD_FAILURE]: (state) => ({
     ...state,
-    isLoading: false,
+    loading: false,
   }),
 
   [CREATE_REQUEST]: (state) => ({
     ...state,
-    isLoading: true,
+    loading: true,
   }),
 
   [CREATE_SUCCESS]: (state, { fuelPurchase }) => {
@@ -145,19 +145,19 @@ const ACTION_HANDLERS = {
     // Alert.alert('debug', JSON.stringify(fuelPurchases.length))
     return {
       ...state,
-      isLoading: false,
+      loading: false,
       fuelPurchases,
     }
   },
 
   [CREATE_FAILURE]: (state) => ({
     ...state,
-    isLoading: false,
+    loading: false,
   }),
 
   [REMOVE_REQUEST]: (state) => ({
     ...state,
-    isLoading: true,
+    loading: true,
   }),
 
   [REMOVE_SUCCESS]: (state, { id }) => {
@@ -165,14 +165,14 @@ const ACTION_HANDLERS = {
 
     return {
       ...state,
-      isLoading: false,
+      loading: false,
       fuelPurchases,
     }
   },
 
   [REMOVE_FAILURE]: (state) => ({
     ...state,
-    isLoading: false,
+    loading: false,
   }),
 }
 
@@ -180,7 +180,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-  isLoading: false,
+  loading: false,
   fuelPurchases: [],
 }
 

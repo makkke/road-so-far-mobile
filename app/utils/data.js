@@ -255,3 +255,46 @@ export const states = [
 ]
 
 export const regions = [...provinces, ...states]
+
+export function findRegion(id) {
+  return regions.find(x => x.id === id)
+}
+
+export const volumeUnits = [
+  { id: 'l', name: 'Liter' },
+  { id: 'gal', name: 'Gallon' },
+]
+
+export const distanceUnits = [
+  { id: 'km', name: 'Kilometre' },
+  { id: 'mi', name: 'Mile' },
+]
+
+export const units = [
+  ...volumeUnits,
+  ...distanceUnits,
+]
+
+export function findUnit(id) {
+  return units.find(x => x.id === id)
+}
+
+export function findVolumeUnitByRegion(region) {
+  const id = isProvince(region) ? 'l' : 'gal'
+
+  return volumeUnits.find(x => x.id === id)
+}
+
+export function findDistanceUnitByRegion(region) {
+  const id = isProvince(region) ? 'km' : 'mi'
+
+  return distanceUnits.find(x => x.id === id)
+}
+
+export function convertVolumeByRegionToLiters(region, volume) {
+  if (isProvince(region)) {
+    return Math.round(volume)
+  }
+
+  return Math.round(volume * 3.78541178)
+}

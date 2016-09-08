@@ -25,6 +25,7 @@ class Routes {
 
   get fuelPurchasesScreen() {
     return {
+      title: 'Fuel Purchases',
       component: FuelPurchasesScreen,
     }
   }

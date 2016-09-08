@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { Navigator } from 'react-native'
+import { Navigator, Text } from 'react-native'
 import SplashScreen from 'rn-splash-screen'
 
 import router from '../../router'
@@ -22,6 +22,7 @@ class App extends Component {
         initialRoute={initialRoute}
         configureScene={router.configureScene}
         renderScene={router.renderScene}
+
       />
     )
   }
